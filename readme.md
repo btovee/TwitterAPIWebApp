@@ -1,4 +1,4 @@
-# Twitter API SPA
+# Twitter API Web App
 
 ## Overview
 
@@ -19,6 +19,7 @@
 - XML PHP Extension
 - NPM/Node
 - composer
+- Twitter API keys
 
 ## Development
 
@@ -35,14 +36,24 @@ This command will start a development server at http://localhost:8000:
 php artisan serve
 </code>
 
+In the .env file you need to set the following to connect to the twitter API:
+- CONSUMER_KEY  
+- CONSUMER_SECRET  
+- OAUTH_TOKEN  
+- OAUTH_TOKEN_SECRET  
+
+These will be provided by twitter when you sign up.
+
 ### Vue.js
 You can use the following commands to check the current version of Node js and NPM.  
+Node js Version:  
 <code>
-// Node js Version  
-node -v  
-// NPM Version  
+node -v
+</code>    
+NPM Version:  
+<code>
 npm -v
-</code>
+</code>  
 
 You can use the following “npm” command to install the necessary node modules.  
 <code>
