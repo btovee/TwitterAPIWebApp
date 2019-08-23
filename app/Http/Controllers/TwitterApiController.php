@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\TwitterApi\TwitterApiServiceProvider;
+
 use App\Services\TwitterApi\TwitterApi;
-use Illuminate\Http\Request;
+
 
 /**
  * Class TwitterApiController
@@ -14,12 +14,15 @@ class TwitterApiController extends Controller
 {
 
     /**
+     * Get the top 5 tweets from a users timeline using the screen name.
+     *
      * @param $screenName
      * @param TwitterApi $twitterApi
      * @return array
      */
-    public function getUserTimeline($screenName, TwitterApi $twitterApi) {
-        $twitterTweets = $twitterApi->get('statuses/user_timeline',  [
+    public function getUserTimeline($screenName, TwitterApi $twitterApi)
+    {
+        $twitterTweets = $twitterApi->get('statuses/user_timeline', [
             'screen_name' => $screenName,
             'count' => '5'
         ]);

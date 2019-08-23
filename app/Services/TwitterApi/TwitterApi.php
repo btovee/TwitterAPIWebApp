@@ -64,6 +64,8 @@ class TwitterApi
     }
 
     /**
+     * Add the query parameters if they exist
+     *
      * @param array $query
      * @param array $oauth
      * @return array
@@ -79,6 +81,8 @@ class TwitterApi
     }
 
     /**
+     * Sort the array by key then value
+     *
      * @param array $arr
      * @return array
      */
@@ -92,42 +96,41 @@ class TwitterApi
     }
 
     /**
+     * Create the signature
+     *
      * @param string $url
      * @param array $arr
      * @return string
      */
     private function createSignature(string $url, array $arr): string
     {
-        // http_build_query automatically encodes, but our parameters
-        // are already encoded, and must be by this point, so we undo
-        // the encoding step
+        // http_build_query automatically encodes, but parameters
+        // are already encoded so we undo the encoding step
         $querystring = urldecode(http_build_query($arr, '', '&'));
-
-
-        // mash everything together for the text to hash
+        // Put everything together for the text to hash
         $base_string = 'GET' . "&" . rawurlencode($url) . "&" . rawurlencode($querystring);
-
         // same with the key
         $key = rawurlencode(env('CONSUMER_SECRET')) . "&" . rawurlencode(env('OAUTH_TOKEN_SECRET'));
-
         // generate the hash
         return rawurlencode(base64_encode(hash_hmac('sha1', $base_string, $key, true)));
     }
 
     /**
+     * Encoding the Query params for the GET request
+     *
      * @param string $url
      * @param array $query
      * @return string
      */
     private function encodeQueryParams(string $url, array $query): string
     {
-        // this time we're using a normal GET query, and we're only encoding the query params
-        // (without the oauth params)
         $url .= "?" . http_build_query($query);
         return str_replace("&amp;", "&", $url);
     }
 
     /**
+     * Add Quotations
+     *
      * @param string $str
      * @return string
      */
@@ -137,6 +140,8 @@ class TwitterApi
     }
 
     /**
+     * Build the full values for the OAuth
+     *
      * @param array $oauth
      * @param string $signature
      * @return string
@@ -151,6 +156,8 @@ class TwitterApi
     }
 
     /**
+     * Make a GET request to the twitter API
+     *
      * @param string $endpoint
      * @param array $query
      * @return mixed
@@ -172,13 +179,14 @@ class TwitterApi
     }
 
     /**
+     * Get only the relevant Tweet Data from the Object
+     *
      * @param $twitterTweetData
      * @return array
      */
     public function getRelevantTweetData($twitterTweetData): array
     {
         $relevantTweetData = [];
-
         if(!empty($twitterTweetData)){
             foreach ($twitterTweetData as $tweet) {
                 if($tweet->text && $tweet->created_at) {
@@ -189,7 +197,6 @@ class TwitterApi
                 }
             }
         }
-
         return $relevantTweetData;
     }
 }
