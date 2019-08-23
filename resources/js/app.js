@@ -26,6 +26,7 @@ Vue.component('search-bar-component', require('./components/twitterApi/searchBar
 Vue.component('nav-bar-component', require('./components/twitterApi/navBarComponent.vue').default);
 Vue.component('screen-name-component', require('./components/twitterApi/screenNameComponent.vue').default);
 Vue.component('error-notification-component', require('./components/util/errorNotificationComponent.vue').default);
+Vue.component('success-notification-component', require('./components/util/successNotificationComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -12,6 +12,12 @@
             :error-message="errorMessage"
         >
         </error-notification-component>
+        <success-notification-component
+            v-if="notification"
+            :notification-message="notificationMessage"
+        >
+            {{notificationMessage}}
+        </success-notification-component>
         <screen-name-component
             :screen-name="screenName"
         ></screen-name-component>
@@ -42,7 +48,10 @@
                 screenName: "",
                 tweets: [],
                 error: false,
-                errorMessage: ""
+                errorMessage: "",
+                notification: false,
+                notificationMessage: "",
+                polling: null
             }
         },
         methods: {
@@ -54,9 +63,17 @@
             },
             updateScreenName: function (screenName) {
                 this.screenName = screenName;
-                if(screenName){
-                    this.getUserTimeLineTweets()
+                if (screenName) {
+                    this.getUserTimeLineTweets();
+                    this.pollForUpdate();
                 }
+            },
+            pollForUpdate: function () {
+                this.polling = null;
+                this.polling = setInterval(() => {
+                    this.setNotification(true, "Checking Twitter for updates....");
+                    this.getUserTimeLineTweets();
+                }, 180000)
             },
             failedToLoadUserTimeline: function () {
                 this.setError(true, "An unexpected error seems to have occurred. " +
@@ -64,23 +81,29 @@
                 this.updateTweetData([]);
                 this.updateScreenName("");
                 this.isLoading(false);
-                setTimeout( () => {
-                    this.setError(false, "");
-                }, 4000
+                setTimeout(() => {
+                        this.setError(false);
+                    }, 4000
                 );
             },
-            setError: function(isError, message){
+            setError: function (isError, message = "") {
                 this.error = isError;
                 this.errorMessage = message;
             },
+            setNotification: function (isNotification, message = "") {
+                this.notification = isNotification;
+                this.notificationMessage = message;
+            },
             getUserTimeLineTweets: function () {
+                this.isLoading(true);
                 axios.get(`/api/userTimeline/${this.screenName}`).then((payload) => {
                     this.tweets = payload.data;
                     this.isLoading(false);
+                    this.setNotification(false);
                 }).catch(() => {
                     this.failedToLoadUserTimeline();
+                    this.setNotification(false);
                 });
-
             }
         }
     }
