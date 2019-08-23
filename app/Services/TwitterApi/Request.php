@@ -20,7 +20,7 @@ class Request
     public function buildCURLGetRequestOptions(string $url, string $auth): array
     {
         return [
-            CURLOPT_HTTPHEADER => array("Authorization: $auth"),
+            CURLOPT_HTTPHEADER => ["Authorization: $auth"],
             CURLOPT_HEADER => false,
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -36,10 +36,10 @@ class Request
      * @param string $postFields
      * @return array
      */
-    public function makeCURLPostRequestOptions(string $url, string $auth, string $postFields): array
+    public function buildCURLPostRequestOptions(string $url, string $auth, string $postFields): array
     {
         return [
-            CURLOPT_HTTPHEADER => array("Authorization: $auth"),
+            CURLOPT_HTTPHEADER => ["Authorization: $auth"],
             CURLOPT_POSTFIELDS => $postFields,
             CURLOPT_HEADER => false,
             CURLOPT_URL => $url,
