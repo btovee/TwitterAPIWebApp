@@ -177,14 +177,15 @@ class TwitterApi
      */
     public function getRelevantTweetData($twitterTweetData): array
     {
-
         $relevantTweetData = [];
 
-        foreach ($twitterTweetData as $tweet) {
-            $relevantTweetData[] = [
-                'text' => $tweet->text,
-                'created_at' => $tweet->created_at
-            ];
+        if(!empty($twitterTweetData)){
+            foreach ($twitterTweetData as $tweet) {
+                $relevantTweetData[] = [
+                    'text' => $tweet->text,
+                    'created_at' => $tweet->created_at
+                ];
+            }
         }
 
         return $relevantTweetData;
