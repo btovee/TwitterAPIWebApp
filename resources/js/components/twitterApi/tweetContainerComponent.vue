@@ -7,6 +7,11 @@
             v-on:tweet-data="updateTweetData"
             v-on:screen-name="updateScreenName"
         ></search-bar-component>
+        <error-notification-component
+            v-if="error"
+            :error-message="errorMessage"
+        >
+        </error-notification-component>
         <screen-name-component
             :screen-name="screenName"
         ></screen-name-component>
@@ -26,13 +31,18 @@
 </template>
 
 <script>
+    import ErrorNotificationComponent from "../util/errorNotificationComponent";
+
     export default {
         name: "TweetContainerComponent",
+        components: {ErrorNotificationComponent},
         data() {
             return {
                 loading: false,
                 screenName: "",
-                tweets: []
+                tweets: [],
+                error: false,
+                errorMessage: ""
             }
         },
         methods: {
@@ -40,17 +50,35 @@
                 this.loading = status;
             },
             updateTweetData: function (tweets) {
-                console.log(tweets);
                 this.tweets = tweets;
             },
             updateScreenName: function (screenName) {
                 this.screenName = screenName;
-                this.getUserTimeLineTweets()
+                if(screenName){
+                    this.getUserTimeLineTweets()
+                }
+            },
+            failedToLoadUserTimeline: function () {
+                this.setError(true, "An unexpected error seems to have occurred. " +
+                    "Why not try refreshing the page? Or you can contact us if the problem persists");
+                this.updateTweetData([]);
+                this.updateScreenName("");
+                this.isLoading(false);
+                setTimeout( () => {
+                    this.setError(false, "");
+                }, 4000
+                );
+            },
+            setError: function(isError, message){
+                this.error = isError;
+                this.errorMessage = message;
             },
             getUserTimeLineTweets: function () {
                 axios.get(`/api/userTimeline/${this.screenName}`).then((payload) => {
                     this.tweets = payload.data;
                     this.isLoading(false);
+                }).catch(() => {
+                    this.failedToLoadUserTimeline();
                 });
 
             }

@@ -19,12 +19,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('loader-component', require('./components/loaderComponent.vue').default);
-Vue.component('tweet-component', require('./components/tweetComponent.vue').default);
-Vue.component('tweet-container-component', require('./components/tweetContainerComponent.vue').default);
-Vue.component('search-bar-component', require('./components/searchBarComponent.vue').default);
-Vue.component('nav-bar-component', require('./components/navBarComponent.vue').default);
-Vue.component('screen-name-component', require('./components/screenNameComponent.vue').default);
+Vue.component('loader-component', require('./components/util/loaderComponent.vue').default);
+Vue.component('tweet-component', require('./components/twitterApi/tweetComponent.vue').default);
+Vue.component('tweet-container-component', require('./components/twitterApi/tweetContainerComponent.vue').default);
+Vue.component('search-bar-component', require('./components/twitterApi/searchBarComponent.vue').default);
+Vue.component('nav-bar-component', require('./components/twitterApi/navBarComponent.vue').default);
+Vue.component('screen-name-component', require('./components/twitterApi/screenNameComponent.vue').default);
+Vue.component('error-notification-component', require('./components/util/errorNotificationComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
