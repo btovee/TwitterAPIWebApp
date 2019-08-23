@@ -26,6 +26,7 @@ class TwitterApiController extends Controller
             'screen_name' => $screenName,
             'count' => '5'
         ]);
+
         return $twitterApi->getRelevantTweetData($twitterTweets);
     }
 

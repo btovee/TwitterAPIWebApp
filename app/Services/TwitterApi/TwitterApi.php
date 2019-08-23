@@ -172,8 +172,6 @@ class TwitterApi
         $signature = $this->createSignature($url, $arr);
         $url = $this->encodeQueryParams($url, $query);
         $auth = $this->buildFullAuthorizationLine($oauth, $signature);
-
-        var_dump($auth);exit();
         $options = $this->mRequest->buildCURLGetRequestOptions($url, $auth);
         $json = $this->mRequest->executeCurlRequest($options);
 
