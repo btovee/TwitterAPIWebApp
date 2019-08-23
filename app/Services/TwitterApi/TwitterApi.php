@@ -181,10 +181,12 @@ class TwitterApi
 
         if(!empty($twitterTweetData)){
             foreach ($twitterTweetData as $tweet) {
-                $relevantTweetData[] = [
-                    'text' => $tweet->text,
-                    'created_at' => $tweet->created_at
-                ];
+                if($tweet->text && $tweet->created_at) {
+                    $relevantTweetData[] = [
+                        'text' => $tweet->text,
+                        'created_at' => $tweet->created_at
+                    ];
+                }
             }
         }
 
