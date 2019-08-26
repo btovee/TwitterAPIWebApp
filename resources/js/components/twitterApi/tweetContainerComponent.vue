@@ -37,11 +37,8 @@
 </template>
 
 <script>
-    import ErrorNotificationComponent from "../util/errorNotificationComponent";
-
     export default {
         name: "TweetContainerComponent",
-        components: {ErrorNotificationComponent},
         data() {
             return {
                 loading: false,

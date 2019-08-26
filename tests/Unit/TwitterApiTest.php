@@ -4,8 +4,6 @@ namespace Tests\Unit;
 
 use App\Services\TwitterApi\TwitterApi;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class TwitterApiTest

@@ -4,9 +4,11 @@ namespace Tests\Unit;
 
 use App\Services\TwitterApi\Request;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class RequestTest
+ * @package Tests\Unit
+ */
 class RequestTest extends TestCase
 {
 
@@ -35,7 +37,7 @@ class RequestTest extends TestCase
     }
 
     /**
-     * A basic unit test example.
+     * Test to determine if the GET request options are build correctly.
      *
      * @return void
      */
@@ -54,6 +56,11 @@ class RequestTest extends TestCase
         $this->assertEquals($expectedOptions, $actualOptions);
     }
 
+    /**
+     * Test to determine if the POST request options are build correctly.
+     *
+     * @return void
+     */
     public function testBuildCURLPostRequestOptions()
     {
         $expectedOptions = [
