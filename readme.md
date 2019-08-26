@@ -3,7 +3,7 @@
 ## Overview
 
 - A small web app using Vue.js on the the frontend and Laravel on the backend
-- Search a Twitter users screen name and the app calls the Twitter API to get 5 of the latest tweets from a users’ timeline.  
+- Search a Twitter users' screen name and the app calls the Twitter API to get 5 of the latest tweets from that users’ timeline.  
     - For Example: The user Barack Obama (@BarackObama), search BarackObama to get his latest tweets.
 - The frontend is set to auto refresh (update new tweets) every 3 minutes.
 
